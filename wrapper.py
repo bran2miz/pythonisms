@@ -1,43 +1,31 @@
-# from functools import wraps
+from functools import wraps
+from time import time
 
-# def yo_mamma_decorator(func):
-#     @wraps(func)
-#     def wrapper(*args, **kwargs):
-#         orig_val = func(*args, **kwargs)
-#         return f'Yo mamma says "{orig_val}"'
-#     return wrapper
+def smart_divide(func):
+    def inner(a, b):
+        print("I am going to divide", a, "and", b)
+        if b == 0:
+            print("Whoops! cannot divide")
+            return
 
-# def sophisticated_decorator(potatoes):
-#     @wraps(potatoes)
-#     def wrapper(*args, **kwargs):
-#         orig_val = potatoes(*args, **kwargs)
-#         return f'It is with a great honor that I hear you say "{orig_val}"'
-#     return wrapper
+        return func(a, b)
+    return inner
 
+def timer_func(func):
 
+    def wrap_func(*args, **kwargs):
+        t1 = time()
+        result = func(*args, **kwargs)
+        t2 = time()
+        print(f'Function {func.__name__!r} executed in {(t2-t1):.4f}s')
+        return result
+    return wrap_func
 
-# # @yo_mamma_decorator
-# @sophisticated_decorator
-# def just_saying(txt):
-#     return txt
+@timer_func
+@smart_divide
+def divide(a, b):
+    print(a/b)  
+  
 
-from sqlite3 import TimestampFromTicks
-import time
-
-def create_time(func):
-  def wrap(*args, **kwargs):
-    start = time.time()
-    result = func(*args, **kwargs)
-    end = time.time()
-
-    print(func.__name__, end-start)
-    return result
-  return wrap
-
-@create_time
-def countdown(number):
-  while number> 0:
-    number -= 1
-
-countdown(5)
-countdown(1000)
+if __name__ == "__main__":
+    divide(78950000006747,32.78)
