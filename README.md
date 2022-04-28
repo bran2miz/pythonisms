@@ -10,7 +10,7 @@ Links and Resources:
 
 [Source 1](https://www.programiz.com/python-programming/methods/built-in/iter)
 
-[Pull Request]()
+[Pull Request](https://github.com/bran2miz/pythonisms/pull/1)
 
 ### Tests
 
