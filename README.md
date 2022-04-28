@@ -10,7 +10,7 @@ Links and Resources:
 
 [Source 1](https://www.programiz.com/python-programming/methods/built-in/iter)
 
-[Pull Request]
+[Pull Request]()
 
 ### Tests
 
@@ -24,4 +24,4 @@ Connor Boyce
 
 Eddie Ponce
 
-
+Roger Huba

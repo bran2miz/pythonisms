@@ -1,6 +1,6 @@
 import pytest
 
-from linked_list_iterator import LinkedList,Stack
+from stack_iterator import LinkedList,Stack
 
 def test_for_in():
     # ['apple'] -> ['banannana'] - > ['cucumber'] -> None
