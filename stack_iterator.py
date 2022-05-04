@@ -1,142 +1,54 @@
-class LinkedList:
-
-#     ["apple","banana","cucumber"]
-# 1st cucumber
-
-# ['apple'] -> ['banannana'] - > ['cucumber'] -> None
-
-    def __init__(self, collection=None):
-        self.head = None
-        if collection:
-            for item in reversed(collection):
-                self.insert(item)
-
-    # ['apple'] -> ['banannana'] - > ['cucumber'] -> None
-    def __iter__(self):
-        def value_generator():
-            current = self.head
-            while current:
-                yield current.value
-                current = current.next
-        return value_generator()
-# return the entire item
-# object has no length 
-
-    def __len__(self):
-        return len(list(iter(self)))
-# converts from an object from value generator() to a list
-# overwriting own length in LL class but utilizing the length of a list object which has its own objects.
-
-    def __eq__(self, other):
-        return list(self) == list(other)
-
-    def __getitem__(self, index):
-        if index < 0:
-            raise IndexError
-        for i, item in enumerate(self):
-            if i == index:
-                return item
-        raise IndexError
-
-    def __str__(self):
-        out = ''
-        for value in self:
-            out += f'[ {value } ] -> '
-        out += 'None'
-        return out
-
-    def insert(self, value):
-        self.head = Node(value, self.head)
-
-    def append(self, value):
-        node = Node(value)
-        if not self.head:
-            self.head = node
-            return
-        current = self.head
-        while current.next:
-            current = current.next
-        current.next = node
-
 class Node:
-    def __init__(self, value, next_ = None):
-        self.value = value
-        self.next = next_
-
-
-if __name__ == "__main__":
-
-    # def gen():
-    #     for i in range(10):
-    #         yield i
-
-    def gen():
-        i = 0
-        while True:
-            yield i
-            i += 1
-
-    numb_gen = gen()
-
-    # print(numb_gen)
-    for j in range(10000):
-        try:
-            print(next(numb_gen))
-        except StopIteration:
-            print('We are all done!')
+  def __init__(self, data, next=None):
+    self.data = data 
+    self.next = next
 
 class Stack:
 
-  def __init__(self, collection=None):
+  def __init__(self, values=None):
     self.top = None
     self.size = 0
-    if collection:
-      for thing in reversed(collection):
-        self.push(thing)
+    if values:
+      for item in values:
+        self.push(item)
 
-  def push(self, value):
-    new_node = Node(value)
-    new_node.next = self.top
-    self.top = new_node
+  def push(self, data):
+    node = Node(data)
+    node.next = self.top
+    self.top = node
     self.size += 1
+
+  def isEmpty(self):
+    return self.top == None
 
   def pop(self):
     try:
-      temp = self.top
+      temp= self.top
       self.top = self.top.next
       self.size -= 1
-      return temp.value
-    except:
-      if self.top == None:
-        return Exception
+      return temp.data
+    except: 
+      if self.top is None:
+       raise Exception('Trying to pop from an empty stack')
+
+  def size(self):
+    return self.size
 
   def peek(self):
-    try:
-      return self.top.value
-    except:
-      if self.top.value == None:
-        return Exception
+    if self.isEmpty():
+      raise Exception('Trying to peek from an empty stack')
+    return self.top.data
 
-  def is_empty(self):
-    return self.size == 0
-  
   def __iter__(self):
-    def value_generator():
+    def reversed_generator():
       current = self
       while current.top:
         yield current.pop()
-    return value_generator()
-  
+    return reversed_generator()
+
   def __len__(self):
     return len(iter(self))
-  
-  def __str__(self):
-        out = ''
-        for value in self:
-            out += f'[ {value } ] -> '
-        out += 'None'
-        return out
-  
+
   def __eq__(self, other):
     return list(self) == list(other)
 
@@ -146,26 +58,27 @@ class Stack:
     for i, item in enumerate(self):
       if i == index:
         return item
-      raise IndexError
+    raise IndexError
+  
+  def __str__(self):
+    string = ''
+    for value in self:
+      string += f'[{value}] -> '
+    string += 'None'
+    return string
 
+if __name__ == '__main__':
 
-if __name__ == "__main__":
+  def generator():
+    i = 0
+    while True:
+      yield i 
+      i += 1
 
-    # def gen():
-    #     for i in range(10):
-    #         yield i
+  number_generator = generator()
 
-    def gen():
-        i = 0
-        while True:
-            yield i
-            i += 1
-
-    numb_gen = gen()
-
-    # print(numb_gen)
-    for j in range(10000):
-        try:
-            print(next(numb_gen))
-        except StopIteration:
-            print('We are all done!')
+  for j in range(1000000):
+    try:
+      print(next(number_generator))
+    except StopIteration:
+      print('All Set')
